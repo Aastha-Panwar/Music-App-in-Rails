@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  listener: one
+  song: one
+
+two:
+  listener: two
+  song: two
