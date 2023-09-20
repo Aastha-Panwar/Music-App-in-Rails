@@ -1,5 +1,5 @@
 class Song < ApplicationRecord
-  belongs_to :artist, foreign_key: 'user_id'
+  belongs_to :artist, class_name: 'User', foreign_key: 'user_id'
   belongs_to :album,  optional: true
   has_many_attached :audio_files #Active Storage for file attachments
 

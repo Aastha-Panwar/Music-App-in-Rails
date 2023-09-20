@@ -6,7 +6,7 @@ class User < ApplicationRecord
     has_many :recommended_tracks, dependent: :destroy  
     
     # Validations
-    validates :email, presence: true, uniqueness: true
+    validates :email, presence: true
     validates :password, presence: true, length: { minimum: 8 }
     validates :user_type, presence: true, inclusion: { in: ['Listener', 'Artist'] }
 end

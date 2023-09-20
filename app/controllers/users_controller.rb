@@ -10,13 +10,14 @@ class UsersController < ApplicationController
     end
     
     def create
-        user = User.new(user_params)
+        @user = User.new(user_params)
         
-        if user.save
+        if @user.save
+            UserMailer.with(user: @user).welcome_email.deliver_now
             # UserMailer.with(user: user).welcome_email.deliver_now
-            render json: { data: user, message: 'User successfully created' }, status: :created
+            render json: { data: @user, message: 'User successfully created' }, status: :created
         else
-            render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+            render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
         end
     end
     
@@ -46,18 +47,6 @@ class UsersController < ApplicationController
             render json: { error: 'Invalid username or password' }, status: :unauthorized
         end
     end
-    
-    # def login
-    #     byebug
-    #     user = User.find_by(email: params[:email], password_digest: params[:password_digest])
-    
-    #     if user
-    #         token = jwt_encode(user_id: user.id)
-    #         render json: { message: 'Logged In Successfully', token: token }
-    #     else
-    #         render json: { error: 'Please Check your Email and Password' }, status: :unauthorized
-    #     end
-    # end
     
     private
     
