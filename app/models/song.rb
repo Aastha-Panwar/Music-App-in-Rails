@@ -3,7 +3,10 @@ class Song < ApplicationRecord
   belongs_to :album,  optional: true
   has_many_attached :audio_files #Active Storage for file attachments
 
-  has_many :playlist_songs, dependent: :destroy
-  has_many :playlists, through: :playlist_songs
+  
+  has_and_belongs_to_many :playlists, dependent: :destroy
+
+  # has_many :playlist_songs, dependent: :destroy
+  # has_many :playlists, through: :playlist_songs
 
 end

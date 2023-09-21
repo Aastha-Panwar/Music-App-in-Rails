@@ -1,7 +1,7 @@
 class SongsController < ApplicationController
     # before_action :authenticate_request
     before_action :validate_artist, only: [:create, :destroy, :top_played_songs, :update]
-    before_action :validate_listner, only: [:show, :recently_played]
+    before_action :validate_listner, only: [ :recently_played]
 
 
   
@@ -22,8 +22,9 @@ class SongsController < ApplicationController
         title: @song.title,
         genre: @song.genre,
         album_id: @song.album_id,
-
       }
+      @song.increment!(:play_count)
+      # render json: @song
     end
   
     def index

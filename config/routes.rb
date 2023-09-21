@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'recently_playeds/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   
   # Defines the root path route ("/")
@@ -28,10 +29,17 @@ Rails.application.routes.draw do
   get '/songs/recommended_by_genre/:genre', to: 'songs#recommended_by_genre'
   get "listner/search-song-by-genre/:genre", to: "songs#search_song_by_genre"
   get "listner/search-song-by-title/:title", to: "songs#search_song_by_title"
+  
+  resources :recently_playeds, only: [:index, :create, :destroy]
 
 
   resources :songs
   resources :albums
+  resources :playlists do
+    member do
+      post 'add_song'
+    end
+  end
 
   # resources :artists do
   #   get 'my_songs_and_albums', on: :collection
@@ -42,14 +50,10 @@ Rails.application.routes.draw do
     get 'my_albums', on: :collection
   end
 
-  resources :playlists do
-    post 'add_song', on: :member
-    post 'merge', on: :member
-    get 'recently_played', on: :collection
-  end
+  # resources :playlists do
+  #   post 'add_song', on: :member
+  #   post 'merge', on: :member
+  #   get 'recently_played', on: :collection
+  # end
   
-  
-
-  # Define a resource for the current user
-  # resource :profile, controller: 'users', only: [:show, :update, :destroy], as: 'current_user_profile'
 end

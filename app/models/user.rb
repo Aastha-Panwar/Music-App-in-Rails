@@ -2,7 +2,8 @@ class User < ApplicationRecord
     has_secure_password
     # STI inheritance
     self.inheritance_column = :user_type
-    has_many :recently_playeds, dependent: :destroy
+    has_many :playlists, dependent: :destroy
+    has_many :recently_playeds, dependent: :destroy, foreign_key: :listener_id
     has_many :recommended_tracks, dependent: :destroy  
     
     # Validations
